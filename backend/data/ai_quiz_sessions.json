@@ -1,0 +1,190 @@
+[
+  {
+    "id": "quiz_1785525164381",
+    "user_id": "user_1785525070224_03wtf",
+    "subject": "Physics",
+    "topic": "Kinematics",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "id": "q_1785525129710_0",
+        "question": "[Physics - Kinematics] Question #1: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525129710_1",
+        "question": "[Physics - Kinematics] Question #2: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525129710_2",
+        "question": "[Physics - Kinematics] Question #3: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525129710_3",
+        "question": "[Physics - Kinematics] Question #4: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525129710_4",
+        "question": "[Physics - Kinematics] Question #5: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      }
+    ],
+    "userAnswers": {
+      "q_1785525129710_0": "Option A: Conservation of Total Energy and Momentum",
+      "q_1785525129710_1": "Option A: Conservation of Total Energy and Momentum",
+      "q_1785525129710_2": "Option A: Conservation of Total Energy and Momentum",
+      "q_1785525129710_3": "Option A: Conservation of Total Energy and Momentum",
+      "q_1785525129710_4": "Option A: Conservation of Total Energy and Momentum"
+    },
+    "score": 5,
+    "completed": true,
+    "created_at": "2026-07-31T19:12:44.381Z"
+  },
+  {
+    "id": "quiz_1785525121643",
+    "user_id": "user_1785525070224_03wtf",
+    "subject": "Physics",
+    "topic": "Kinematics",
+    "difficulty": "medium",
+    "questions": [
+      {
+        "id": "q_1785525100201_0",
+        "question": "[Physics - Kinematics] Question #1: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525100201_1",
+        "question": "[Physics - Kinematics] Question #2: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525100201_2",
+        "question": "[Physics - Kinematics] Question #3: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525100201_3",
+        "question": "[Physics - Kinematics] Question #4: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      },
+      {
+        "id": "q_1785525100201_4",
+        "question": "[Physics - Kinematics] Question #5: Which of the following principles correctly applies to Kinematics?",
+        "options": [
+          "Option A: Conservation of Total Energy and Momentum",
+          "Option B: Inverse Square Law Proportionality",
+          "Option C: Zero Net Force in Inertial Frame",
+          "Option D: Exponential Decay Rate Parameter"
+        ],
+        "correctAnswer": "Option A: Conservation of Total Energy and Momentum",
+        "explanation": "In Kinematics, energy conservation holds in closed systems without non-conservative work.",
+        "difficulty": "medium",
+        "topic": "Kinematics",
+        "questionType": "MCQ"
+      }
+    ],
+    "userAnswers": {
+      "q_1785525100201_0": "Option B: Inverse Square Law Proportionality",
+      "q_1785525100201_1": "Option B: Inverse Square Law Proportionality",
+      "q_1785525100201_2": "Option A: Conservation of Total Energy and Momentum",
+      "q_1785525100201_3": "Option A: Conservation of Total Energy and Momentum",
+      "q_1785525100201_4": "Option A: Conservation of Total Energy and Momentum"
+    },
+    "score": 3,
+    "completed": true,
+    "created_at": "2026-07-31T19:12:01.643Z"
+  }
+]

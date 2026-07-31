@@ -20,6 +20,8 @@ const StudentBatchPage = React.lazy(() => import('./pages/student/StudentBatchPa
 const LiveClassesPage = React.lazy(() => import('./pages/student/LiveClassesPage'));
 const StudyMaterialPage = React.lazy(() => import('./pages/student/StudyMaterialPage'));
 const TestsPage = React.lazy(() => import('./pages/student/TestsPage'));
+const TestTakePage = React.lazy(() => import('./pages/student/TestTakePage'));
+const TestResultPage = React.lazy(() => import('./pages/student/TestResultPage'));
 const NotificationsPage = React.lazy(() => import('./pages/student/NotificationsPage'));
 const DoubtsPage = React.lazy(() => import('./pages/student/DoubtsPage'));
 const ProfilePage = React.lazy(() => import('./pages/student/ProfilePage'));
@@ -136,6 +138,20 @@ const AppRoutes: React.FC = () => {
           <ProtectedRoute>
             <StudentLayout>
               <TestsPage />
+            </StudentLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/student/tests/:testId" element={
+          <ProtectedRoute>
+            <StudentLayout fullscreen>
+              <TestTakePage />
+            </StudentLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/student/tests/:testId/result" element={
+          <ProtectedRoute>
+            <StudentLayout>
+              <TestResultPage />
             </StudentLayout>
           </ProtectedRoute>
         } />
