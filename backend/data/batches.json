@@ -1,0 +1,62 @@
+[
+  {
+    "id": "batch_lakshya_2026",
+    "title": "Lakshya JEE 2026 (Class 12th + JEE Main & Advanced)",
+    "slug": "lakshya-jee-2026",
+    "description": "Complete syllabus coverage for JEE Main & Advanced 2026 with daily live classes, DPPs, chapterwise tests, and 24/7 doubt resolution by Kota faculty.",
+    "target_exam": "JEE Main & Advanced 2026",
+    "level": "advanced",
+    "language": "Hinglish (Hindi + English)",
+    "price": 1,
+    "original_price": 29,
+    "status": "active",
+    "is_featured": true,
+    "enrolled_count": 1420,
+    "created_at": "2026-07-21T10:08:58.258Z",
+    "thumbnail_url": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
+    "categories": {
+      "name": "JEE"
+    },
+    "category_id": ""
+  },
+  {
+    "id": "batch_yakeen_2026",
+    "title": "Yakeen NEET 2026 (Droppers / Class 12th Intensive)",
+    "slug": "yakeen-neet-2026",
+    "description": "Top-ranked NEET preparation batch focused on NCERT deep-dives, Biology mindmaps, Physics problem tricks, and weekly AIIMS mock tests.",
+    "target_exam": "NEET UG 2026",
+    "level": "intermediate",
+    "language": "Hinglish",
+    "price": 1,
+    "original_price": 29,
+    "status": "active",
+    "is_featured": true,
+    "enrolled_count": 2180,
+    "created_at": "2026-07-23T10:08:58.259Z",
+    "thumbnail_url": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80",
+    "categories": {
+      "name": "NEET"
+    },
+    "category_id": ""
+  },
+  {
+    "id": "batch_udaan_10th",
+    "title": "Udaan Class 10th Board + NTSE Foundation 2026",
+    "slug": "udaan-class-10th-2026",
+    "description": "Strong foundation for CBSE/State Board 10th exam with Olympiad & NTSE level problem solving in Physics, Chemistry, Maths & Biology.",
+    "target_exam": "Class 10th Boards & NTSE",
+    "level": "beginner",
+    "language": "Hindi + English",
+    "price": 0,
+    "original_price": 0,
+    "status": "active",
+    "is_featured": true,
+    "enrolled_count": 852,
+    "created_at": "2026-07-26T10:08:58.259Z",
+    "thumbnail_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+    "categories": {
+      "name": "Foundation"
+    },
+    "category_id": ""
+  }
+]

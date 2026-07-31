@@ -1,0 +1,60 @@
+[
+  {
+    "id": "enr_1785497134197_v8mk",
+    "student_id": "user_1785493417336_g14tl",
+    "batch_id": "batch_udaan_10th",
+    "status": "active",
+    "payment_status": "free",
+    "amount_paid": 0,
+    "enrolled_at": "2026-07-31T11:25:34.197Z",
+    "batches": {
+      "id": "batch_udaan_10th",
+      "title": "Udaan Class 10th Board + NTSE Foundation 2026",
+      "slug": "udaan-class-10th-2026",
+      "description": "Strong foundation for CBSE/State Board 10th exam with Olympiad & NTSE level problem solving in Physics, Chemistry, Maths & Biology.",
+      "target_exam": "Class 10th Boards & NTSE",
+      "level": "beginner",
+      "language": "Hindi + English",
+      "price": 0,
+      "original_price": 0,
+      "status": "active",
+      "is_featured": true,
+      "enrolled_count": 851,
+      "created_at": "2026-07-26T10:08:58.259Z",
+      "thumbnail_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+      "categories": {
+        "name": "Foundation"
+      },
+      "category_id": ""
+    }
+  },
+  {
+    "id": "enr_1785495500248_poe4",
+    "student_id": "admin_master_001",
+    "batch_id": "batch_udaan_10th",
+    "status": "active",
+    "payment_status": "free",
+    "amount_paid": 0,
+    "enrolled_at": "2026-07-31T10:58:20.248Z",
+    "batches": {
+      "id": "batch_udaan_10th",
+      "title": "Udaan Class 10th Board + NTSE Foundation 2026",
+      "slug": "udaan-class-10th-2026",
+      "description": "Strong foundation for CBSE/State Board 10th exam with Olympiad & NTSE level problem solving in Physics, Chemistry, Maths & Biology.",
+      "target_exam": "Class 10th Boards & NTSE",
+      "level": "beginner",
+      "language": "Hindi + English",
+      "price": 0,
+      "original_price": 0,
+      "status": "active",
+      "is_featured": true,
+      "enrolled_count": 851,
+      "created_at": "2026-07-26T10:08:58.259Z",
+      "thumbnail_url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
+      "categories": {
+        "name": "Foundation"
+      },
+      "category_id": ""
+    }
+  }
+]
