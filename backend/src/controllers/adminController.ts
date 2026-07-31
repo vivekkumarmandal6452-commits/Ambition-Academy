@@ -3,6 +3,8 @@ import { supabaseAdmin } from '../config/supabase';
 import { sendSuccess, sendError, sendPaginated, getPagination } from '../utils/response';
 import { batchStore } from '../store/batchStore';
 import { notesStore } from '../store/notesStore';
+import { enrollmentStore } from '../store/enrollmentStore';
+import { aiStore } from '../ai/ai.store';
 
 // ──────────────── DASHBOARD ────────────────
 export const getAdminDashboard = async (req: Request, res: Response) => {
@@ -28,6 +30,26 @@ export const getAdminDashboard = async (req: Request, res: Response) => {
     const recentStudents = getValue(results[5], { data: [] }).data || [];
     const upcomingClasses = getValue(results[6], { data: [] }).data || [];
 
+    // Real revenue from enrollment store
+    const localRevenue = enrollmentStore.getRevenue();
+    const recentPurchases = enrollmentStore.getRecentPurchases(5);
+    const aiTestStats = aiStore.getTestAttemptStats();
+
+    // Try to also get revenue from Supabase
+    let dbRevenue = 0;
+    try {
+      const { data: paidEnrollments } = await supabaseAdmin
+        .from('enrollments')
+        .select('amount_paid')
+        .eq('payment_status', 'paid')
+        .eq('status', 'active');
+      if (paidEnrollments) {
+        dbRevenue = paidEnrollments.reduce((s: number, e: any) => s + (e.amount_paid || 0), 0);
+      }
+    } catch {}
+
+    const totalRevenue = Math.max(localRevenue, dbRevenue);
+
     sendSuccess(res, {
       stats: {
         total_students: totalStudents,
@@ -35,12 +57,195 @@ export const getAdminDashboard = async (req: Request, res: Response) => {
         total_lectures: totalLectures,
         total_enrollments: totalEnrollments,
         live_classes: liveClasses,
+        total_revenue: totalRevenue,
+        ai_tests_total: aiTestStats.total,
+        ai_tests_completed: aiTestStats.completed,
       },
       recent_students: recentStudents,
       upcoming_classes: upcomingClasses,
+      recent_purchases: recentPurchases,
     });
   } catch {
     sendError(res, 'Failed to fetch dashboard data', 500);
+  }
+};
+
+// ──────────────── REVENUE & PURCHASES ────────────────
+export const getAdminRevenue = async (req: Request, res: Response) => {
+  try {
+    const localRevenue = enrollmentStore.getRevenue();
+    const allEnrollments = enrollmentStore.getAll();
+    const paidEnrollments = allEnrollments.filter(e => e.payment_status === 'paid');
+    const freeEnrollments = allEnrollments.filter(e => e.payment_status === 'free');
+
+    // Try to get DB-level paid enrollments too
+    let dbPaid: any[] = [];
+    try {
+      const { data } = await supabaseAdmin
+        .from('enrollments')
+        .select('student_id, batch_id, amount_paid, payment_status, enrolled_at')
+        .eq('payment_status', 'paid');
+      if (data) dbPaid = data;
+    } catch {}
+
+    const totalDbRevenue = dbPaid.reduce((s, e) => s + (e.amount_paid || 0), 0);
+    const totalRevenue = Math.max(localRevenue, totalDbRevenue);
+
+    // Batch-wise revenue breakdown
+    const batchRevenue: Record<string, { title: string; count: number; revenue: number }> = {};
+    for (const e of [...paidEnrollments, ...dbPaid]) {
+      const batchId = e.batch_id;
+      const batch = batchStore.getById(batchId);
+      const title = e.batches?.title || batch?.title || `Batch ${batchId.slice(-6)}`;
+      if (!batchRevenue[batchId]) batchRevenue[batchId] = { title, count: 0, revenue: 0 };
+      batchRevenue[batchId].count++;
+      batchRevenue[batchId].revenue += e.amount_paid || 0;
+    }
+
+    sendSuccess(res, {
+      total_revenue: totalRevenue,
+      paid_enrollments: paidEnrollments.length + dbPaid.length,
+      free_enrollments: freeEnrollments.length,
+      total_enrollments: allEnrollments.length,
+      batch_revenue: Object.values(batchRevenue).sort((a, b) => b.revenue - a.revenue),
+      recent_purchases: enrollmentStore.getRecentPurchases(20),
+    });
+  } catch {
+    sendError(res, 'Failed to fetch revenue data', 500);
+  }
+};
+
+export const getAdminPurchases = async (req: Request, res: Response) => {
+  try {
+    const { page, limit, offset } = getPagination(req.query.page as string, req.query.limit as string);
+    const { status, batch_id, search } = req.query;
+
+    let purchases = enrollmentStore.getAll();
+
+    // Try DB too
+    try {
+      const { data } = await supabaseAdmin
+        .from('enrollments')
+        .select('*, profiles!enrollments_student_id_fkey(name, email), batches(title)')
+        .order('enrolled_at', { ascending: false });
+      if (data && data.length > 0) {
+        const dbIds = new Set(data.map((d: any) => d.id));
+        const localOnly = purchases.filter(p => !dbIds.has(p.id));
+        purchases = [...data, ...localOnly];
+      }
+    } catch {}
+
+    if (status) purchases = purchases.filter(p => p.payment_status === status);
+    if (batch_id) purchases = purchases.filter(p => p.batch_id === batch_id);
+    if (search) {
+      const s = String(search).toLowerCase();
+      purchases = purchases.filter(p =>
+        (p as any).profiles?.name?.toLowerCase().includes(s) ||
+        (p as any).batches?.title?.toLowerCase().includes(s)
+      );
+    }
+
+    const total = purchases.length;
+    const paginated = purchases.slice(offset, offset + limit);
+    sendPaginated(res, paginated, page, limit, total);
+  } catch {
+    sendError(res, 'Failed to fetch purchases', 500);
+  }
+};
+
+// ──────────────── STUDENT DETAIL PAGE ────────────────
+export const getStudentDetail = async (req: Request, res: Response) => {
+  try {
+    const { studentId: _sid } = req.params;
+    const studentId = String(_sid);
+
+    // Profile
+    let profile: any = null;
+    try {
+      const { data } = await supabaseAdmin.from('profiles').select('*').eq('id', studentId).single();
+      profile = data;
+    } catch {}
+
+    // Enrollments
+    const localEnrollments = enrollmentStore.getByStudent(studentId);
+    let dbEnrollments: any[] = [];
+    try {
+      const { data } = await supabaseAdmin
+        .from('enrollments')
+        .select('*, batches(id, title, target_exam, price)')
+        .eq('student_id', studentId)
+        .order('enrolled_at', { ascending: false });
+      if (data) dbEnrollments = data;
+    } catch {}
+    const dbBatchIds = new Set(dbEnrollments.map((e: any) => e.batch_id));
+    const allEnrollments = [...dbEnrollments, ...localEnrollments.filter(e => !dbBatchIds.has(e.batch_id))];
+
+    // Test attempts (from Supabase regular tests)
+    let testAttempts: any[] = [];
+    try {
+      const { data } = await supabaseAdmin
+        .from('test_attempts')
+        .select('*, tests(title, total_marks)')
+        .eq('student_id', studentId)
+        .order('started_at', { ascending: false });
+      if (data) testAttempts = data;
+    } catch {}
+
+    // AI Summary
+    const aiSummary = aiStore.getStudentAISummary(studentId);
+    const aiTestHistory = aiStore.getStudentTestAttempts(studentId);
+
+    // Purchases (paid enrollments)
+    const purchases = allEnrollments.filter((e: any) => e.payment_status === 'paid');
+    const totalPaid = purchases.reduce((s: number, e: any) => s + (e.amount_paid || 0), 0);
+
+    sendSuccess(res, {
+      profile,
+      enrollments: allEnrollments,
+      test_attempts: testAttempts,
+      purchases,
+      total_paid: totalPaid,
+      ai_summary: aiSummary,
+      ai_test_history: aiTestHistory.slice(0, 20),
+    });
+  } catch {
+    sendError(res, 'Failed to fetch student detail', 500);
+  }
+};
+
+// ──────────────── ADMIN AI TEST ANALYTICS ────────────────
+export const getAdminAITestAnalytics = async (req: Request, res: Response) => {
+  try {
+    const stats = aiStore.getTestAttemptStats();
+    const allAttempts = aiStore.getAllTestAttempts();
+
+    // Per-student summary
+    const studentMap: Record<string, { attempts: number; completed: number; avg_accuracy: number }> = {};
+    for (const a of allAttempts) {
+      if (!studentMap[a.user_id]) studentMap[a.user_id] = { attempts: 0, completed: 0, avg_accuracy: 0 };
+      studentMap[a.user_id].attempts++;
+      if (a.status === 'completed') {
+        studentMap[a.user_id].completed++;
+        studentMap[a.user_id].avg_accuracy = Math.round(
+          (studentMap[a.user_id].avg_accuracy + (a.accuracy || 0)) / 2
+        );
+      }
+    }
+
+    sendSuccess(res, {
+      ...stats,
+      student_count: Object.keys(studentMap).length,
+      top_subjects: Object.entries(stats.by_subject)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([subject, count]) => ({ subject, count })),
+      top_topics: Object.entries(stats.by_topic)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .map(([topic, count]) => ({ topic, count })),
+    });
+  } catch {
+    sendError(res, 'Failed to fetch AI test analytics', 500);
   }
 };
 

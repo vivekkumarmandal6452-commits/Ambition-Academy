@@ -52,6 +52,25 @@ class EnrollmentStore {
     return this.enrollments.find(e => e.student_id === studentId && e.batch_id === batchId);
   }
 
+  getAll(): EnrollmentItem[] {
+    return this.enrollments;
+  }
+
+  /** Total revenue from paid enrollments only */
+  getRevenue(): number {
+    return this.enrollments
+      .filter(e => e.payment_status === 'paid' && e.status === 'active')
+      .reduce((sum, e) => sum + (e.amount_paid || 0), 0);
+  }
+
+  /** Recent purchases (paid enrollments), sorted newest first */
+  getRecentPurchases(limit: number = 20): EnrollmentItem[] {
+    return this.enrollments
+      .filter(e => e.payment_status === 'paid')
+      .sort((a, b) => new Date(b.enrolled_at).getTime() - new Date(a.enrolled_at).getTime())
+      .slice(0, limit);
+  }
+
   add(item: Partial<EnrollmentItem>): EnrollmentItem {
     const newItem: EnrollmentItem = {
       id: item.id || `enr_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,

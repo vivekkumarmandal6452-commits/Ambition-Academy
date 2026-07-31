@@ -18,10 +18,11 @@ const AdminDashboard: React.FC = () => {
   const stats = data?.stats;
 
   const statCards = [
+    { label: 'Total Revenue', value: `₹${(stats?.total_revenue || 0).toLocaleString()}`, icon: TrendingUp, color: '#10B981' },
     { label: 'Total Students', value: stats?.total_students || 0, icon: Users, color: '#7C3AED' },
     { label: 'Active Batches', value: stats?.total_batches || 0, icon: BookOpen, color: '#3B82F6' },
-    { label: 'Total Lectures', value: stats?.total_lectures || 0, icon: Video, color: '#10B981' },
     { label: 'Total Enrollments', value: stats?.total_enrollments || 0, icon: TrendingUp, color: '#F59E0B' },
+    { label: 'AI Tests Taken', value: stats?.ai_tests_total || 0, icon: BarChart2, color: '#8B5CF6' },
     { label: 'Live Classes', value: stats?.live_classes || 0, icon: Zap, color: '#EF4444' },
   ];
 

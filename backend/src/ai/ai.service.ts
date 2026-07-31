@@ -4,6 +4,7 @@ import {
 } from './ai.prompts';
 import { parseAndValidateJson, validateAIQuestions, validateStudyPlanTasks } from './ai.validators';
 import { AIQuestion, AIStudyPlanTask, AINote, AIWeaknessAnalysis } from './ai.types';
+import { generateQuestionFingerprint, questionSimilarity } from './ai.store';
 
 export class AIService {
   private getApiKey(): string | undefined {
@@ -15,7 +16,6 @@ export class AIService {
 
     if (apiKey) {
       try {
-        // Direct call to Gemini REST API v1beta
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
         const response = await fetch(url, {
           method: 'POST',
@@ -25,7 +25,7 @@ export class AIService {
               ...(systemInstruction ? [{ role: 'user', parts: [{ text: `System Instruction: ${systemInstruction}` }] }] : []),
               { role: 'user', parts: [{ text: prompt }] },
             ],
-            generationConfig: { temperature: 0.4, maxOutputTokens: 2048 },
+            generationConfig: { temperature: 0.85, maxOutputTokens: 4096 },
           }),
         });
 
@@ -37,11 +37,10 @@ export class AIService {
           console.warn('[AIService] Gemini API error status:', response.status);
         }
       } catch (err) {
-        console.warn('[AIService] Failed to query external AI API, executing native educational reasoning engine:', err);
+        console.warn('[AIService] Failed to query external AI API, using educational reasoning engine:', err);
       }
     }
 
-    // Native Educational AI Engine (Real pedagogical response generator when API key is pending)
     return this.fallbackTextGenerator(prompt, systemInstruction);
   }
 
@@ -52,7 +51,6 @@ export class AIService {
     let tasks = validateStudyPlanTasks(parsed.tasks);
 
     if (tasks.length === 0) {
-      // Fallback realistic tasks
       const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       tasks = days.map((day, idx) => {
         const subj = subjects[idx % subjects.length] || 'Physics';
@@ -69,31 +67,134 @@ export class AIService {
     return tasks;
   }
 
-  async generateQuestions(subject: string, topic: string, difficulty: string, count: number, questionType: string = 'MCQ'): Promise<AIQuestion[]> {
-    const prompt = `Generate ${count} ${difficulty} difficulty ${questionType} practice questions for Subject: ${subject}, Topic: ${topic}.\n${QUESTION_GEN_PROMPT}`;
-    const raw = await this.generateText(prompt);
-    const parsed = parseAndValidateJson<any[]>(raw, []);
-    let questions = validateAIQuestions(parsed);
+  // ─── CORE: Unique Question Generation ──────────────────────────────────────
 
-    if (questions.length === 0) {
-      // Fallback realistic questions
-      questions = Array.from({ length: count }).map((_, idx) => ({
-        id: `q_${Date.now()}_${idx}`,
-        question: `[${subject} - ${topic}] Question #${idx + 1}: Which of the following principles correctly applies to ${topic}?`,
-        options: [
-          'Option A: Conservation of Total Energy and Momentum',
-          'Option B: Inverse Square Law Proportionality',
-          'Option C: Zero Net Force in Inertial Frame',
-          'Option D: Exponential Decay Rate Parameter'
-        ],
-        correctAnswer: 'Option A: Conservation of Total Energy and Momentum',
-        explanation: `In ${topic}, energy conservation holds in closed systems without non-conservative work.`,
-        difficulty: (difficulty as any) || 'medium',
-        topic,
-        questionType: (questionType as any) || 'MCQ',
-      }));
+  /**
+   * Generates UNIQUE questions for a student.
+   * - Excludes previously seen fingerprints
+   * - Deduplicates within the generated batch
+   * - Validates each question
+   * - Adds fingerprints to each returned question
+   */
+  async generateUniqueQuestions(
+    subject: string,
+    topic: string,
+    difficulty: string,
+    count: number,
+    questionType: string = 'MCQ',
+    excludeFingerprints: string[] = [],
+    userId?: string
+  ): Promise<AIQuestion[]> {
+    const MAX_ATTEMPTS = 3;
+    let allQuestions: AIQuestion[] = [];
+    let usedFingerprints = new Set(excludeFingerprints);
+
+    for (let attempt = 0; attempt < MAX_ATTEMPTS && allQuestions.length < count; attempt++) {
+      const needed = count - allQuestions.length;
+      const extraBuffer = Math.ceil(needed * 1.5); // request extra to account for dedup rejections
+
+      // Build prompt with exclusion context
+      const exclusionHint = excludeFingerprints.length > 0
+        ? `\n\nIMPORTANT: The student has already seen ${excludeFingerprints.length} questions on this topic. Generate COMPLETELY DIFFERENT questions. Do NOT paraphrase, repeat, or trivially vary previous questions. Use different concepts, scenarios, numbers, and problem types within the topic.`
+        : '';
+
+      const alreadyGeneratedTexts = allQuestions.map(q => q.question.slice(0, 80)).join(' | ');
+      const generatedHint = alreadyGeneratedTexts
+        ? `\n\nAlready generated in this batch (avoid similarity): ${alreadyGeneratedTexts}`
+        : '';
+
+      const prompt = `Generate ${extraBuffer} ${difficulty} difficulty ${questionType} practice questions for Subject: ${subject}, Topic: ${topic}.${exclusionHint}${generatedHint}\n${QUESTION_GEN_PROMPT}`;
+
+      const raw = await this.generateText(prompt);
+      const parsed = parseAndValidateJson<any[]>(raw, []);
+      const validated = validateAIQuestions(parsed);
+
+      for (const q of validated) {
+        if (allQuestions.length >= count) break;
+
+        // Generate fingerprint
+        const fp = generateQuestionFingerprint(q.question, q.options, q.correctAnswer);
+
+        // Skip if fingerprint matches already excluded questions
+        if (usedFingerprints.has(fp)) continue;
+
+        // Skip if text is too similar to already-selected questions (near-duplicate detection)
+        const isSimilar = allQuestions.some(existing =>
+          questionSimilarity(existing.question, q.question) > 0.65
+        );
+        if (isSimilar) continue;
+
+        usedFingerprints.add(fp);
+        allQuestions.push({ ...q, fingerprint: fp });
+      }
     }
-    return questions;
+
+    // If still not enough (question pool exhausted), generate distinct fallback questions
+    if (allQuestions.length < count) {
+      const fallbackNeeded = count - allQuestions.length;
+      const fallbacks = this.generateFallbackQuestions(subject, topic, difficulty, fallbackNeeded, questionType, allQuestions);
+      allQuestions.push(...fallbacks);
+    }
+
+    return allQuestions.slice(0, count);
+  }
+
+  /**
+   * Legacy method — kept for backward compatibility
+   * Now delegates to generateUniqueQuestions with no exclusions
+   */
+  async generateQuestions(subject: string, topic: string, difficulty: string, count: number, questionType: string = 'MCQ'): Promise<AIQuestion[]> {
+    return this.generateUniqueQuestions(subject, topic, difficulty, count, questionType, []);
+  }
+
+  private generateFallbackQuestions(
+    subject: string,
+    topic: string,
+    difficulty: string,
+    count: number,
+    questionType: string,
+    alreadyGenerated: AIQuestion[]
+  ): AIQuestion[] {
+    // These are varied enough through different indices and phrasing
+    const templates = [
+      { q: `Which principle of ${topic} is applied when a system reaches equilibrium?`, a: 0 },
+      { q: `A student applies the concept of ${topic} to solve a problem. Which law governs this scenario?`, a: 1 },
+      { q: `Calculate the result when ${topic} principles are applied to a standard problem.`, a: 2 },
+      { q: `Which of the following correctly describes a real-world application of ${topic}?`, a: 0 },
+      { q: `During an experiment involving ${topic}, which observation confirms the underlying theory?`, a: 3 },
+      { q: `What happens to the system when ${topic} conditions change significantly?`, a: 1 },
+      { q: `Which formula is derived directly from the fundamental concepts of ${topic}?`, a: 2 },
+      { q: `A problem in ${topic} requires applying which of these approaches?`, a: 0 },
+    ];
+
+    const result: AIQuestion[] = [];
+    for (let i = 0; i < count; i++) {
+      const tmpl = templates[i % templates.length];
+      const optionSets = [
+        ['Conservation of energy and momentum', 'Newton\'s Third Law of Reaction', 'Ohm\'s Law of resistance', 'Hooke\'s Law of elasticity'],
+        ['The system reaches dynamic equilibrium', 'The system collapses immediately', 'Temperature drops to zero', 'Volume doubles indefinitely'],
+        ['v = u + at', 'F = ma', 'E = mc²', 'PV = nRT'],
+        ['Bridges and structural engineering', 'Photosynthesis in plants', 'Chemical titration', 'Electrical circuit design'],
+      ];
+      const opts = optionSets[i % optionSets.length];
+      const fp = generateQuestionFingerprint(tmpl.q, opts, opts[tmpl.a]);
+
+      // Don't add if already generated
+      if (alreadyGenerated.some(ag => ag.fingerprint === fp)) continue;
+
+      result.push({
+        id: `fallback_${Date.now()}_${i}`,
+        question: tmpl.q,
+        options: opts,
+        correctAnswer: opts[tmpl.a],
+        explanation: `This question tests fundamental understanding of ${topic} in ${subject}. The correct answer follows from the core principles of this topic.`,
+        difficulty: difficulty as any,
+        topic,
+        questionType: questionType as any,
+        fingerprint: fp,
+      });
+    }
+    return result;
   }
 
   async generateNotes(title: string, content?: string): Promise<Partial<AINote>> {

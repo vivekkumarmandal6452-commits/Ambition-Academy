@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home, BookOpen, Video, Zap, TestTube, FileText,
   HelpCircle, Bell, User, LogOut, ChevronLeft, ChevronRight,
-  BarChart2, Menu, X, Image, Sparkles, Brain, PenLine, Mic,
+  BarChart2, Menu, X, Image, Sparkles, Brain, PenLine, Mic, Clock,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Avatar } from '../ui';
@@ -29,6 +29,7 @@ const aiNavItems = [
   { label: 'AI Quiz Generator', href: '/student/ai/quiz', icon: Brain },
   { label: 'AI Smart Notes', href: '/student/ai/notes', icon: PenLine },
   { label: 'AI Viva Mode', href: '/student/ai/viva', icon: Mic },
+  { label: 'My Activity & History', href: '/student/activity', icon: Clock },
 ];
 
 const StudentSidebar: React.FC = () => {

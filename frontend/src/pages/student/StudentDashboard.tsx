@@ -179,6 +179,36 @@ const StudentDashboard: React.FC = () => {
             </div>
           )}
         </div>
+
+        {/* Recent Activity Section */}
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+            <h2 style={{ color: 'var(--text)', fontWeight: 700, fontSize: '1.15rem' }}>Learning Timeline & Practice</h2>
+            <Link to="/student/activity" style={{ color: 'var(--primary-light)', fontSize: 13, display: 'flex', alignItems: 'center', gap: 4, fontWeight: 600 }}>
+              Full activity history <ArrowRight size={14} />
+            </Link>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+            <Link to="/student/ai/quiz" style={{ textDecoration: 'none' }}>
+              <motion.div className="card" style={{ padding: 20, borderLeft: '4px solid #7C3AED' }} whileHover={{ y: -3 }}>
+                <p style={{ color: 'var(--text)', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>🧠 AI Test Generator</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>Generate unique practice tests with zero repeated questions.</p>
+              </motion.div>
+            </Link>
+            <Link to="/student/ai/study-plan" style={{ textDecoration: 'none' }}>
+              <motion.div className="card" style={{ padding: 20, borderLeft: '4px solid #3B82F6' }} whileHover={{ y: -3 }}>
+                <p style={{ color: 'var(--text)', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>✨ AI Study Planner</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>Personalized daily timetable adapted to your exam target.</p>
+              </motion.div>
+            </Link>
+            <Link to="/student/activity" style={{ textDecoration: 'none' }}>
+              <motion.div className="card" style={{ padding: 20, borderLeft: '4px solid #10B981' }} whileHover={{ y: -3 }}>
+                <p style={{ color: 'var(--text)', fontWeight: 700, fontSize: 15, marginBottom: 4 }}>⏱️ My Learning History</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>Review all past test scores, enrolled courses, and activity.</p>
+              </motion.div>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

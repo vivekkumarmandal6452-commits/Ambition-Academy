@@ -145,6 +145,11 @@ export const adminService = {
     return data;
   },
 
+  getStudentDetail: async (studentId: string) => {
+    const { data } = await api.get(`/api/admin/students/${studentId}`);
+    return data.data;
+  },
+
   updateUser: async (id: string, payload: { role?: string; is_active?: boolean }) => {
     const { data } = await api.put(`/api/admin/users/${id}`, payload);
     return data.data;

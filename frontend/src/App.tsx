@@ -28,9 +28,11 @@ const AiStudyPlanPage = React.lazy(() => import('./pages/student/AiStudyPlanPage
 const AiQuizPage = React.lazy(() => import('./pages/student/AiQuizPage'));
 const AiNotesPage = React.lazy(() => import('./pages/student/AiNotesPage'));
 const AiVivaPage = React.lazy(() => import('./pages/student/AiVivaPage'));
+const AiActivityPage = React.lazy(() => import('./pages/student/AiActivityPage'));
 
 const AdminDashboard = React.lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminUsersPage = React.lazy(() => import('./pages/admin/AdminUsersPage'));
+const AdminStudentDetailPage = React.lazy(() => import('./pages/admin/AdminStudentDetailPage'));
 const AdminBatchesPage = React.lazy(() => import('./pages/admin/AdminBatchesPage'));
 const AdminGalleryPage = React.lazy(() => import('./pages/admin/AdminGalleryPage'));
 const AdminContentManagerPage = React.lazy(() => import('./pages/admin/AdminContentManagerPage'));
@@ -193,10 +195,12 @@ const AppRoutes: React.FC = () => {
         <Route path="/student/ai/quiz" element={<ProtectedRoute><StudentLayout><AiQuizPage /></StudentLayout></ProtectedRoute>} />
         <Route path="/student/ai/notes" element={<ProtectedRoute><StudentLayout><AiNotesPage /></StudentLayout></ProtectedRoute>} />
         <Route path="/student/ai/viva" element={<ProtectedRoute><StudentLayout><AiVivaPage /></StudentLayout></ProtectedRoute>} />
+        <Route path="/student/activity" element={<ProtectedRoute><StudentLayout><AiActivityPage /></StudentLayout></ProtectedRoute>} />
 
         {/* Admin Area */}
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsersPage /></ProtectedRoute>} />
+        <Route path="/admin/students/:studentId" element={<ProtectedRoute requireAdmin><AdminStudentDetailPage /></ProtectedRoute>} />
         <Route path="/admin/batches" element={<ProtectedRoute requireAdmin><AdminBatchesPage /></ProtectedRoute>} />
         <Route path="/admin/gallery" element={<ProtectedRoute requireAdmin><AdminGalleryPage /></ProtectedRoute>} />
         <Route path="/admin/subjects" element={<ProtectedRoute requireAdmin><AdminContentManagerPage defaultTab="classes" /></ProtectedRoute>} />

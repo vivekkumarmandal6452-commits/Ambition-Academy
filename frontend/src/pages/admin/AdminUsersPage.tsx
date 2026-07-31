@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Users, Search, UserCheck, UserX, Shield } from 'lucide-react';
 import { adminService } from '../../services';
@@ -124,12 +125,20 @@ const AdminUsersPage: React.FC = () => {
                       {new Date(user.created_at).toLocaleDateString('en-IN')}
                     </td>
                     <td className="table-cell">
-                      <button
-                        onClick={() => toggleActive(user)}
-                        style={{ padding: '6px 12px', borderRadius: 6, fontSize: 12, cursor: 'pointer', border: '1px solid var(--border)', background: 'var(--card-raised)', color: user.is_active ? 'var(--danger)' : '#10B981', transition: 'var(--transition)' }}
-                      >
-                        {user.is_active ? 'Deactivate' : 'Activate'}
-                      </button>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <Link
+                          to={`/admin/students/${user.id}`}
+                          style={{ textDecoration: 'none', padding: '6px 12px', borderRadius: 6, fontSize: 12, border: '1px solid rgba(124,58,237,0.3)', background: 'rgba(124,58,237,0.1)', color: 'var(--primary-light)', fontWeight: 600 }}
+                        >
+                          Analytics
+                        </Link>
+                        <button
+                          onClick={() => toggleActive(user)}
+                          style={{ padding: '6px 12px', borderRadius: 6, fontSize: 12, cursor: 'pointer', border: '1px solid var(--border)', background: 'var(--card-raised)', color: user.is_active ? 'var(--danger)' : '#10B981', transition: 'var(--transition)' }}
+                        >
+                          {user.is_active ? 'Deactivate' : 'Activate'}
+                        </button>
+                      </div>
                     </td>
                   </motion.tr>
                 ))}

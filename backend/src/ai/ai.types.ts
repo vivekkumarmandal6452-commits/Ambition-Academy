@@ -1,3 +1,4 @@
+// ─── Existing AI Types (preserved) ───────────────────────────────────────────
 export interface AIMessage {
   id: string;
   conversation_id: string;
@@ -56,6 +57,8 @@ export interface AIQuestion {
   difficulty: 'easy' | 'medium' | 'hard';
   topic: string;
   questionType?: 'MCQ' | 'Multiple correct' | 'True/False' | 'Short answer' | 'Numerical';
+  // New: fingerprint for deduplication
+  fingerprint?: string;
 }
 
 export interface AIQuizSession {
@@ -138,4 +141,87 @@ export interface AIUsageRecord {
   user_id: string;
   date: string;
   count: number;
+}
+
+// ─── NEW: Question Bank (shared pool of validated questions) ───────────────────
+export interface AIQuestionRecord {
+  id: string;
+  fingerprint: string;          // normalized hash for dedup
+  subject: string;
+  topic: string;
+  difficulty: string;
+  question_type: string;
+  question_text: string;
+  options: string[];
+  correct_answer: string;
+  explanation: string;
+  created_at: string;
+  // tracks which students have already seen this question (for per-student dedup)
+  used_by_students: string[];
+}
+
+// ─── NEW: AI Test Attempt (immutable once created) ─────────────────────────────
+export interface AITestAttemptQuestion {
+  question_id: string;
+  fingerprint: string;
+  question_text: string;
+  options: string[];
+  correct_answer: string;
+  explanation: string;
+  topic: string;
+  difficulty: string;
+  selected_answer?: string;       // filled on submit
+  is_correct?: boolean;           // filled on submit
+  time_spent_seconds?: number;
+}
+
+export interface AITestAttempt {
+  id: string;                     // unique attempt ID
+  user_id: string;
+  subject: string;
+  topic: string;
+  difficulty: string;
+  question_type: string;
+  attempt_number: number;         // 1, 2, 3 … for retakes
+  questions: AITestAttemptQuestion[];   // LOCKED once attempt starts
+  score?: number;
+  total_questions: number;
+  correct_count?: number;
+  incorrect_count?: number;
+  skipped_count?: number;
+  accuracy?: number;
+  status: 'in_progress' | 'completed' | 'abandoned';
+  started_at: string;
+  completed_at?: string;
+}
+
+// ─── NEW: Activity Event ───────────────────────────────────────────────────────
+export type AIActivityEventType =
+  | 'ai_chat'
+  | 'ai_quiz_started'
+  | 'ai_quiz_completed'
+  | 'ai_notes_generated'
+  | 'ai_study_plan_created'
+  | 'ai_viva_completed'
+  | 'ai_doubt_solved'
+  | 'batch_enrolled'
+  | 'batch_purchased'
+  | 'lecture_watched'
+  | 'test_started'
+  | 'test_completed'
+  | 'dpp_submitted'
+  | 'live_class_joined'
+  | 'doubt_submitted'
+  | 'profile_updated';
+
+export interface AIActivityEvent {
+  id: string;
+  user_id: string;
+  type: AIActivityEventType;
+  title: string;
+  description: string;
+  entity_id?: string;            // batch_id, test_id, etc.
+  entity_type?: string;
+  metadata?: Record<string, any>;
+  created_at: string;
 }
