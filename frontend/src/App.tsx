@@ -24,6 +24,10 @@ const NotificationsPage = React.lazy(() => import('./pages/student/Notifications
 const DoubtsPage = React.lazy(() => import('./pages/student/DoubtsPage'));
 const ProfilePage = React.lazy(() => import('./pages/student/ProfilePage'));
 const LecturePlayer = React.lazy(() => import('./pages/student/LecturePlayer'));
+const AiStudyPlanPage = React.lazy(() => import('./pages/student/AiStudyPlanPage'));
+const AiQuizPage = React.lazy(() => import('./pages/student/AiQuizPage'));
+const AiNotesPage = React.lazy(() => import('./pages/student/AiNotesPage'));
+const AiVivaPage = React.lazy(() => import('./pages/student/AiVivaPage'));
 
 const AdminDashboard = React.lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminUsersPage = React.lazy(() => import('./pages/admin/AdminUsersPage'));
@@ -182,6 +186,13 @@ const AppRoutes: React.FC = () => {
             </StudentLayout>
           </ProtectedRoute>
         } />
+
+        {/* AI Learning System */}
+        <Route path="/student/ai" element={<ProtectedRoute><StudentLayout><AiStudyPlanPage /></StudentLayout></ProtectedRoute>} />
+        <Route path="/student/ai/study-plan" element={<ProtectedRoute><StudentLayout><AiStudyPlanPage /></StudentLayout></ProtectedRoute>} />
+        <Route path="/student/ai/quiz" element={<ProtectedRoute><StudentLayout><AiQuizPage /></StudentLayout></ProtectedRoute>} />
+        <Route path="/student/ai/notes" element={<ProtectedRoute><StudentLayout><AiNotesPage /></StudentLayout></ProtectedRoute>} />
+        <Route path="/student/ai/viva" element={<ProtectedRoute><StudentLayout><AiVivaPage /></StudentLayout></ProtectedRoute>} />
 
         {/* Admin Area */}
         <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} />

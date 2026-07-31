@@ -72,12 +72,13 @@ interface ProgressBarProps {
   max?: number;
   className?: string;
   showLabel?: boolean;
+  style?: React.CSSProperties;
 }
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({ value, max = 100, className = '', showLabel = false }) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({ value, max = 100, className = '', showLabel = false, style }) => {
   const pct = Math.min(100, Math.round((value / max) * 100));
   return (
-    <div>
+    <div style={style}>
       <div className={`progress-bar ${className}`}>
         <div className="progress-fill" style={{ width: `${pct}%` }} />
       </div>

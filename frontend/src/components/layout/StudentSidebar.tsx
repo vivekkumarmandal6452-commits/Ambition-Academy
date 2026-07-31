@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home, BookOpen, Video, Zap, TestTube, FileText,
   HelpCircle, Bell, User, LogOut, ChevronLeft, ChevronRight,
-  BarChart2, Menu, X, Image,
+  BarChart2, Menu, X, Image, Sparkles, Brain, PenLine, Mic,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Avatar } from '../ui';
@@ -22,6 +22,13 @@ const navItems = [
   { label: 'Doubts', href: '/student/doubts', icon: HelpCircle },
   { label: 'Notifications', href: '/student/notifications', icon: Bell },
   { label: 'Profile', href: '/student/profile', icon: User },
+];
+
+const aiNavItems = [
+  { label: 'AI Study Planner', href: '/student/ai/study-plan', icon: Sparkles },
+  { label: 'AI Quiz Generator', href: '/student/ai/quiz', icon: Brain },
+  { label: 'AI Smart Notes', href: '/student/ai/notes', icon: PenLine },
+  { label: 'AI Viva Mode', href: '/student/ai/viva', icon: Mic },
 ];
 
 const StudentSidebar: React.FC = () => {
@@ -81,7 +88,6 @@ const StudentSidebar: React.FC = () => {
         </Link>
       )}
 
-      {/* Nav Items */}
       <nav style={{ flex: 1, padding: '12px 8px', overflowY: 'auto' }}>
         {navItems.map(item => {
           const isActive = location.pathname === item.href ||
@@ -98,6 +104,44 @@ const StudentSidebar: React.FC = () => {
                 background: isActive ? 'rgba(124,58,237,0.15)' : 'transparent',
                 color: isActive ? 'var(--primary-light)' : 'var(--text-muted)',
                 borderLeft: isActive ? '3px solid var(--primary)' : '3px solid transparent',
+                paddingLeft: collapsed ? 10 : 13,
+              }}
+              title={collapsed ? item.label : undefined}
+            >
+              <item.icon size={18} style={{ flexShrink: 0 }} />
+              {!collapsed && <span>{item.label}</span>}
+            </Link>
+          );
+        })}
+
+        {/* AI Section Divider */}
+        <div style={{ margin: '10px 0 6px', padding: collapsed ? '0 6px' : '0 10px' }}>
+          {!collapsed ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+              <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--primary-light)', whiteSpace: 'nowrap', padding: '2px 8px', background: 'rgba(124,58,237,0.15)', borderRadius: 10, border: '1px solid rgba(124,58,237,0.3)' }}>
+                ✨ AI TOOLS
+              </span>
+              <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+            </div>
+          ) : <div style={{ height: 1, background: 'var(--border)' }} />}
+        </div>
+
+        {aiNavItems.map(item => {
+          const isActive = location.pathname === item.href ||
+            location.pathname.startsWith(item.href);
+          return (
+            <Link
+              key={item.href}
+              to={item.href}
+              onClick={() => setMobileOpen(false)}
+              className="sidebar-item"
+              style={{
+                marginBottom: 2,
+                justifyContent: collapsed ? 'center' : 'flex-start',
+                background: isActive ? 'rgba(124,58,237,0.2)' : 'transparent',
+                color: isActive ? 'var(--primary-light)' : 'var(--text-muted)',
+                borderLeft: isActive ? '3px solid var(--primary-light)' : '3px solid transparent',
                 paddingLeft: collapsed ? 10 : 13,
               }}
               title={collapsed ? item.label : undefined}

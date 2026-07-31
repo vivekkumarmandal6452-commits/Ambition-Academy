@@ -15,6 +15,7 @@ import doubtRoutes from './routes/doubts';
 import notificationRoutes from './routes/notifications';
 import adminRoutes from './routes/admin';
 import galleryRoutes from './routes/gallery';
+import aiRoutes from './ai/ai.routes';
 import { errorHandler, notFoundHandler } from './middleware/error';
 
 dotenv.config();
@@ -68,6 +69,7 @@ app.use('/api/doubts', doubtRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/gallery', galleryRoutes);
+app.use('/api/ai', aiRoutes);
 
 // ──────────────── ERROR HANDLING ────────────────
 app.use(notFoundHandler);
