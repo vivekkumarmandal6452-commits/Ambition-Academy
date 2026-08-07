@@ -15,29 +15,36 @@ export class AIService {
     const apiKey = this.getApiKey();
 
     if (apiKey) {
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              ...(systemInstruction ? [{ role: 'user', parts: [{ text: `System Instruction: ${systemInstruction}` }] }] : []),
-              { role: 'user', parts: [{ text: prompt }] },
-            ],
-            generationConfig: { temperature: 0.85, maxOutputTokens: 4096 },
-          }),
-        });
+      const models = ['gemini-flash-latest', 'gemini-2.0-flash', 'gemini-2.5-flash'];
 
-        if (response.ok) {
-          const data: any = await response.json();
-          const candidateText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (candidateText) return candidateText;
-        } else {
-          console.warn('[AIService] Gemini API error status:', response.status);
+      for (const model of models) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [
+                ...(systemInstruction ? [{ role: 'user', parts: [{ text: `System Instruction: ${systemInstruction}` }] }] : []),
+                { role: 'user', parts: [{ text: prompt }] },
+              ],
+              generationConfig: { temperature: 0.85, maxOutputTokens: 4096 },
+            }),
+          });
+
+          if (response.ok) {
+            const data: any = await response.json();
+            const candidateText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (candidateText) {
+              console.log(`[AIService] Successfully generated content using model: ${model}`);
+              return candidateText;
+            }
+          } else {
+            console.warn(`[AIService] Gemini model ${model} status:`, response.status);
+          }
+        } catch (err) {
+          console.warn(`[AIService] Failed to query ${model}:`, err);
         }
-      } catch (err) {
-        console.warn('[AIService] Failed to query external AI API, using educational reasoning engine:', err);
       }
     }
 
