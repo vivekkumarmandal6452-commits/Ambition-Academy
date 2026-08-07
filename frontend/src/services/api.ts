@@ -2,11 +2,18 @@ import axios from 'axios';
 import { supabase } from '../lib/supabase';
 
 const getApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
-  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+  const envUrl = import.meta.env.VITE_API_URL;
+  const isBrowser = typeof window !== 'undefined';
+  const isProductionBrowser = isBrowser && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
+
+  if (isProductionBrowser) {
+    if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+      return envUrl;
+    }
     return 'https://ambition-academy.onrender.com';
   }
-  return 'http://localhost:5000';
+
+  return envUrl || 'http://localhost:5000';
 };
 
 const api = axios.create({
