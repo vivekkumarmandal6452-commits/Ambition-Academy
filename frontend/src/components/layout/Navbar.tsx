@@ -166,10 +166,10 @@ const Navbar: React.FC = () => {
             style={{
               width: 36, height: 36, borderRadius: 8,
               background: 'var(--card)', border: '1px solid var(--border)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              alignItems: 'center', justifyContent: 'center',
               color: 'var(--text-muted)',
             }}
-            className="md:hidden"
+            className="md:hidden flex"
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>

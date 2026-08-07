@@ -138,7 +138,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       {/* Mobile */}
       <div style={{ width: '100%', minWidth: 0 }}>
         {/* Mobile TopBar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--card)', borderBottom: '1px solid var(--border)', position: 'sticky', top: 0, zIndex: 50 }} className="md:hidden">
+        <div style={{ alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--card)', borderBottom: '1px solid var(--border)', position: 'sticky', top: 0, zIndex: 50 }} className="md:hidden flex">
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <AmbitionLogo variant="icon" size={26} />
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, color: 'var(--text)', fontSize: '0.9rem' }}>Ambition Admin</span>

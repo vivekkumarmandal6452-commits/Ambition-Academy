@@ -207,11 +207,11 @@ const StudentSidebar: React.FC = () => {
           position: 'fixed', top: 14, left: 14, zIndex: 60,
           width: 38, height: 38, borderRadius: 10,
           background: 'var(--card)', border: '1px solid var(--border)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          alignItems: 'center', justifyContent: 'center',
           color: 'var(--text-muted)', cursor: 'pointer',
           boxShadow: 'var(--shadow-sm)',
         }}
-        className="md:hidden"
+        className="md:hidden flex"
         aria-label="Open menu"
       >
         {mobileOpen ? <X size={18} /> : <Menu size={18} />}

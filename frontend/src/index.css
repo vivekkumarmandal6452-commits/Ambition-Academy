@@ -428,9 +428,26 @@ button { cursor: pointer; border: none; font-family: inherit; }
 }
 
 /* ──────────────────────────────────────
-   MOBILE OVERRIDES
+   MOBILE & RESPONSIVE UTILITIES
 ────────────────────────────────────── */
-@media (max-width: 768px) {
-  .section { padding: 64px 0; }
-  .container { padding: 0 16px; }
+.hidden { display: none !important; }
+
+@media (min-width: 768px) {
+  .md\:hidden { display: none !important; }
+  .md\:block { display: block !important; }
+  .md\:flex { display: flex !important; }
+  .md\:inline-flex { display: inline-flex !important; }
+  .md\:grid { display: grid !important; }
 }
+
+@media (max-width: 767px) {
+  .section { padding: 48px 0; }
+  .container { padding: 0 16px; }
+  .hidden { display: none !important; }
+  
+  /* Mobile padding & touch targets */
+  input, select, textarea, button {
+    font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
+  }
+}
+
