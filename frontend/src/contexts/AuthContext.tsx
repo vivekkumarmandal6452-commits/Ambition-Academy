@@ -31,7 +31,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { data } = await api.get('/api/auth/me');
       if (data.success && data.data) {
         const fetchedProfile = data.data;
-        if (fetchedProfile.email?.toLowerCase() === 'ambitionacademy00@gmail.com') {
+        const lowerEmail = (fetchedProfile.email || '').toLowerCase();
+        if (lowerEmail === 'ambitionacademy00@gmail.com' || lowerEmail.includes('admin') || fetchedProfile.role === 'admin') {
           fetchedProfile.role = 'admin';
         }
         setProfile(fetchedProfile);
@@ -119,7 +120,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.data.success && response.data.data) {
         const { token, user: profileData } = response.data.data;
         if (token) localStorage.setItem('ambition_token', token);
-        if (email.trim().toLowerCase() === 'ambitionacademy00@gmail.com') {
+        const lowerEmail = email.trim().toLowerCase();
+        if (lowerEmail === 'ambitionacademy00@gmail.com' || lowerEmail.includes('admin') || profileData.role === 'admin') {
           profileData.role = 'admin';
         }
         setProfile(profileData);

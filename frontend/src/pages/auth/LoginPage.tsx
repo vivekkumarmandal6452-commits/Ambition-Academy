@@ -22,7 +22,8 @@ const LoginPage: React.FC = () => {
     try {
       await signIn(email, password);
       toast.success('Welcome back!');
-      if (email.trim().toLowerCase() === 'ambitionacademy00@gmail.com') {
+      const lowerEmail = email.trim().toLowerCase();
+      if (lowerEmail === 'ambitionacademy00@gmail.com' || lowerEmail.includes('admin')) {
         navigate('/admin');
       } else {
         navigate('/student');
