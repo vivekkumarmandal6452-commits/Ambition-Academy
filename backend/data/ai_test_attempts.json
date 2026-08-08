@@ -1,0 +1,276 @@
+[
+  {
+    "id": "aitst_1786011073843_w2ym",
+    "user_id": "user_1785525070224_03wtf",
+    "subject": "Physics",
+    "topic": "Kinematics",
+    "difficulty": "medium",
+    "question_type": "MCQ",
+    "questions": [
+      {
+        "question_id": "q_0_63925936",
+        "fingerprint": "63925936",
+        "question_text": "Which principle of Kinematics is applied when a system reaches equilibrium?",
+        "options": [
+          "Newton's Third Law of Reaction",
+          "Conservation of energy and momentum",
+          "Ohm's Law of resistance",
+          "Hooke's Law of elasticity"
+        ],
+        "correct_answer": "Conservation of energy and momentum",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_1_9f616157",
+        "fingerprint": "9f616157",
+        "question_text": "A student applies the concept of Kinematics to solve a problem. Which law governs this scenario?",
+        "options": [
+          "Volume doubles indefinitely",
+          "Temperature drops to zero",
+          "The system reaches dynamic equilibrium",
+          "The system collapses immediately"
+        ],
+        "correct_answer": "The system collapses immediately",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_2_fea9aa9f",
+        "fingerprint": "fea9aa9f",
+        "question_text": "Calculate the result when Kinematics principles are applied to a standard problem.",
+        "options": [
+          "PV = nRT",
+          "E = mc²",
+          "F = ma",
+          "v = u + at"
+        ],
+        "correct_answer": "E = mc²",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_3_16db5234",
+        "fingerprint": "16db5234",
+        "question_text": "Which of the following correctly describes a real-world application of Kinematics?",
+        "options": [
+          "Electrical circuit design",
+          "Bridges and structural engineering",
+          "Photosynthesis in plants",
+          "Chemical titration"
+        ],
+        "correct_answer": "Bridges and structural engineering",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_4_e4dde950",
+        "fingerprint": "e4dde950",
+        "question_text": "During an experiment involving Kinematics, which observation confirms the underlying theory?",
+        "options": [
+          "Ohm's Law of resistance",
+          "Newton's Third Law of Reaction",
+          "Hooke's Law of elasticity",
+          "Conservation of energy and momentum"
+        ],
+        "correct_answer": "Hooke's Law of elasticity",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_5_e3442ee2",
+        "fingerprint": "e3442ee2",
+        "question_text": "What happens to the system when Kinematics conditions change significantly?",
+        "options": [
+          "Volume doubles indefinitely",
+          "Temperature drops to zero",
+          "The system collapses immediately",
+          "The system reaches dynamic equilibrium"
+        ],
+        "correct_answer": "The system collapses immediately",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_6_13c8a6cd",
+        "fingerprint": "13c8a6cd",
+        "question_text": "Which formula is derived directly from the fundamental concepts of Kinematics?",
+        "options": [
+          "v = u + at",
+          "F = ma",
+          "E = mc²",
+          "PV = nRT"
+        ],
+        "correct_answer": "E = mc²",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_7_b0541cab",
+        "fingerprint": "b0541cab",
+        "question_text": "A problem in Kinematics requires applying which of these approaches?",
+        "options": [
+          "Electrical circuit design",
+          "Photosynthesis in plants",
+          "Chemical titration",
+          "Bridges and structural engineering"
+        ],
+        "correct_answer": "Bridges and structural engineering",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      }
+    ],
+    "total_questions": 8,
+    "attempt_number": 2,
+    "status": "in_progress",
+    "started_at": "2026-08-06T10:11:13.843Z"
+  },
+  {
+    "id": "aitst_1786011050481_67wl",
+    "user_id": "user_1785525070224_03wtf",
+    "subject": "Physics",
+    "topic": "Kinematics",
+    "difficulty": "medium",
+    "question_type": "MCQ",
+    "questions": [
+      {
+        "question_id": "q_0_63925936",
+        "fingerprint": "63925936",
+        "question_text": "Which principle of Kinematics is applied when a system reaches equilibrium?",
+        "options": [
+          "Hooke's Law of elasticity",
+          "Ohm's Law of resistance",
+          "Newton's Third Law of Reaction",
+          "Conservation of energy and momentum"
+        ],
+        "correct_answer": "Conservation of energy and momentum",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_1_9f616157",
+        "fingerprint": "9f616157",
+        "question_text": "A student applies the concept of Kinematics to solve a problem. Which law governs this scenario?",
+        "options": [
+          "Temperature drops to zero",
+          "The system collapses immediately",
+          "Volume doubles indefinitely",
+          "The system reaches dynamic equilibrium"
+        ],
+        "correct_answer": "The system collapses immediately",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_2_fea9aa9f",
+        "fingerprint": "fea9aa9f",
+        "question_text": "Calculate the result when Kinematics principles are applied to a standard problem.",
+        "options": [
+          "v = u + at",
+          "PV = nRT",
+          "F = ma",
+          "E = mc²"
+        ],
+        "correct_answer": "E = mc²",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_3_16db5234",
+        "fingerprint": "16db5234",
+        "question_text": "Which of the following correctly describes a real-world application of Kinematics?",
+        "options": [
+          "Chemical titration",
+          "Bridges and structural engineering",
+          "Photosynthesis in plants",
+          "Electrical circuit design"
+        ],
+        "correct_answer": "Bridges and structural engineering",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_4_e4dde950",
+        "fingerprint": "e4dde950",
+        "question_text": "During an experiment involving Kinematics, which observation confirms the underlying theory?",
+        "options": [
+          "Conservation of energy and momentum",
+          "Newton's Third Law of Reaction",
+          "Ohm's Law of resistance",
+          "Hooke's Law of elasticity"
+        ],
+        "correct_answer": "Hooke's Law of elasticity",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_5_e3442ee2",
+        "fingerprint": "e3442ee2",
+        "question_text": "What happens to the system when Kinematics conditions change significantly?",
+        "options": [
+          "The system reaches dynamic equilibrium",
+          "The system collapses immediately",
+          "Volume doubles indefinitely",
+          "Temperature drops to zero"
+        ],
+        "correct_answer": "The system collapses immediately",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_6_13c8a6cd",
+        "fingerprint": "13c8a6cd",
+        "question_text": "Which formula is derived directly from the fundamental concepts of Kinematics?",
+        "options": [
+          "PV = nRT",
+          "v = u + at",
+          "F = ma",
+          "E = mc²"
+        ],
+        "correct_answer": "E = mc²",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      },
+      {
+        "question_id": "q_7_b0541cab",
+        "fingerprint": "b0541cab",
+        "question_text": "A problem in Kinematics requires applying which of these approaches?",
+        "options": [
+          "Chemical titration",
+          "Photosynthesis in plants",
+          "Bridges and structural engineering",
+          "Electrical circuit design"
+        ],
+        "correct_answer": "Bridges and structural engineering",
+        "explanation": "This question tests fundamental understanding of Kinematics in Physics. The correct answer follows from the core principles of this topic.",
+        "topic": "Kinematics",
+        "difficulty": "medium"
+      }
+    ],
+    "total_questions": 8,
+    "attempt_number": 1,
+    "status": "completed",
+    "started_at": "2026-08-06T10:10:50.481Z",
+    "score": 0,
+    "correct_count": 0,
+    "incorrect_count": 0,
+    "skipped_count": 8,
+    "accuracy": 0,
+    "completed_at": "2026-08-06T10:11:04.526Z"
+  }
+]

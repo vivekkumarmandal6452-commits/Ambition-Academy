@@ -1,0 +1,51 @@
+[
+  {
+    "id": "act_1786011073845_iokz",
+    "user_id": "user_1785525070224_03wtf",
+    "type": "ai_quiz_started",
+    "title": "Started AI Test",
+    "description": "Physics — Kinematics (medium) | 8 questions | Attempt #2",
+    "entity_id": "aitst_1786011073843_w2ym",
+    "entity_type": "ai_test_attempt",
+    "metadata": {
+      "subject": "Physics",
+      "topic": "Kinematics",
+      "difficulty": "medium",
+      "attempt_number": 2
+    },
+    "created_at": "2026-08-06T10:11:13.845Z"
+  },
+  {
+    "id": "act_1786011064528_kdki",
+    "user_id": "user_1785525070224_03wtf",
+    "type": "ai_quiz_completed",
+    "title": "Completed AI Test",
+    "description": "Physics — Kinematics | Score: 0/8 (0%) | Attempt #1",
+    "entity_id": "aitst_1786011050481_67wl",
+    "entity_type": "ai_test_attempt",
+    "metadata": {
+      "subject": "Physics",
+      "topic": "Kinematics",
+      "score": 0,
+      "total": 8,
+      "accuracy": 0
+    },
+    "created_at": "2026-08-06T10:11:04.528Z"
+  },
+  {
+    "id": "act_1786011050489_ur7f",
+    "user_id": "user_1785525070224_03wtf",
+    "type": "ai_quiz_started",
+    "title": "Started AI Test",
+    "description": "Physics — Kinematics (medium) | 8 questions | Attempt #1",
+    "entity_id": "aitst_1786011050481_67wl",
+    "entity_type": "ai_test_attempt",
+    "metadata": {
+      "subject": "Physics",
+      "topic": "Kinematics",
+      "difficulty": "medium",
+      "attempt_number": 1
+    },
+    "created_at": "2026-08-06T10:10:50.489Z"
+  }
+]

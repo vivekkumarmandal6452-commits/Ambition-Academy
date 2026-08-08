@@ -2,8 +2,11 @@
   "name": "ambition-academy",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "build": "cd backend && npm install && npm run build",
-    "start": "cd backend && node dist/server.js"
+    "build": "cd backend && npm install && npx tsc",
+    "start": "node backend/dist/server.js"
   }
 }
