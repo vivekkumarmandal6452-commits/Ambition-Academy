@@ -22,28 +22,25 @@ dotenv.config();
 
 const app = express();
 
-// ──────────────── SECURITY MIDDLEWARE ────────────────
+// ──────────────── SECURITY & CORS MIDDLEWARE ────────────────
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" },
 }));
 
-app.use(cors({
-  origin: true,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  optionsSuccessStatus: 200,
-}));
+// Universal CORS handler for all origins, preflights, and request headers
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '*';
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, error: 'Too many requests, please try again later' },
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  next();
 });
-app.use('/api/', limiter);
 
 // ──────────────── BODY & LOGGING ────────────────
 app.use(express.json({ limit: '10mb' }));
