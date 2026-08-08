@@ -65,7 +65,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const { data, error } = await supabase.auth.admin.createUser({ email: cleanEmail, password, email_confirm: true, user_metadata: { name } });
         if (!error && data?.user) {
           const profile = { id: data.user.id, email: cleanEmail, name: name || cleanEmail.split('@')[0], role: 'student', is_active: true, created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
-          await supabase.from('profiles').upsert({ ...profile }).select().single().catch(() => {});
+          try { await supabase.from('profiles').upsert({ ...profile }).select().single(); } catch {}
           const token = generateToken({ id: profile.id, email: profile.email, role: profile.role, name: profile.name });
           return res.status(201).json({ success: true, data: { token, user: profile } });
         }
@@ -105,7 +105,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
         if (!error && data?.user) {
-          const { data: profileData } = await supabase.from('profiles').select('*').eq('id', data.user.id).single().catch(() => ({ data: null }));
+          let profileData: any = null;
+          try { const r = await supabase.from('profiles').select('*').eq('id', data.user.id).single(); profileData = r.data; } catch {}
           const profile = profileData || { id: data.user.id, email: cleanEmail, name: data.user.user_metadata?.name || cleanEmail.split('@')[0], role: cleanEmail.includes('admin') ? 'admin' : 'student', is_active: true, created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
           const token = generateToken({ id: profile.id, email: profile.email, role: profile.role, name: profile.name });
           return res.json({ success: true, data: { token, user: profile }, message: 'Login successful' });
