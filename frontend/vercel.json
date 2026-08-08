@@ -1,9 +1,11 @@
 {
+  "functions": {
+    "api/[...path].ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://ambition-academy.onrender.com/api/:path*"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
