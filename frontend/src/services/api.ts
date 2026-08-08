@@ -2,18 +2,18 @@ import axios from 'axios';
 import { supabase } from '../lib/supabase';
 
 const getApiBaseUrl = () => {
-  const envUrl = import.meta.env.VITE_API_URL;
   const isBrowser = typeof window !== 'undefined';
-  const isProductionBrowser = isBrowser && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
+  const isProductionBrowser = isBrowser &&
+    !window.location.hostname.includes('localhost') &&
+    !window.location.hostname.includes('127.0.0.1');
 
+  // In production on Vercel: use relative path so Vercel proxy handles it (no CORS!)
   if (isProductionBrowser) {
-    if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
-      return envUrl;
-    }
-    return 'https://ambition-academy.onrender.com';
+    return '';
   }
 
-  return envUrl || 'http://localhost:5000';
+  // Local development: direct backend
+  return 'http://localhost:5000';
 };
 
 const api = axios.create({
